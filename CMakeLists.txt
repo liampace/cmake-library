@@ -17,6 +17,7 @@ project ("MyLibrary"
 string(COMPARE EQUAL "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}" MYLIBRARY_STANDALONE)
 option(MYLIBRARY_BUILD_EXAMPLES "Build the ${PROJECT_NAME} example programs" ${MYLIBRARY_STANDALONE})
 option(MYLIBRARY_BUILD_TESTS "Build the ${PROJECT_NAME} test programs" ${MYLIBRARY_STANDALONE})
+option(MYLIBRARY_BUILD_DOCS "Build the ${PROJECT_NAME} HTML documentation." ON)
 
 # Add source files (.cpp) to this project.
 add_library(${PROJECT_NAME})
@@ -47,4 +48,8 @@ if (MYLIBRARY_BUILD_TESTS)
 	include(CTest)
 	enable_testing()
 	add_subdirectory("tests")
+endif()
+
+if (MYLIBRARY_BUILD_DOCS)
+	add_subdirectory("docs")
 endif()
