@@ -42,4 +42,6 @@ if (MYLIBRARY_BUILD_EXAMPLES)
 	add_subdirectory("examples")
 endif()
 
+include(CTest)
+enable_testing()
 add_subdirectory("tests")
