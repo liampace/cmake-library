@@ -1,0 +1,6 @@
+file(GLOB_RECURSE EXAMPLE_FILES CONFIGURE_DEPENDS "*.cpp")
+foreach(EXAMPLE_FILE ${EXAMPLE_FILES})
+	get_filename_component(EXAMPLE_NAME ${EXAMPLE_FILE} NAME_WE)
+	add_executable(${EXAMPLE_NAME} ${EXAMPLE_FILE})
+	target_link_libraries(${EXAMPLE_NAME} PRIVATE ${PROJECT_NAME})
+endforeach()
