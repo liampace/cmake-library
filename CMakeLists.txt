@@ -9,19 +9,27 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("cmake-library")
+project ("MyLibrary"
+	VERSION 1.0
+	DESCRIPTION "A simple CMake library.")
 
-# Add source to this project's executable.
-add_executable (cmake-library "cmake-library.cpp" "cmake-library.h")
+# Add source files (.cpp) to this project.
+add_library(${PROJECT_NAME})
+add_subdirectory("src")
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET cmake-library PROPERTY CXX_STANDARD 20)
-endif()
+# Add template header files (.hpp) to this project
+file(GLOB_RECURSE TEMPLATE_FILES CONFIGURE_DEPENDS "include/*.hpp")
+target_sources(${PROJECT_NAME} PUBLIC ${TEMPLATE_FILES})
+
+# Add normal header files (.h) to this project
+file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS "include/*.h")
+target_sources(${PROJECT_NAME} PUBLIC ${HEADER_FILES})
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
 # Fix CMake Issue #18837 
 # https://gitlab.kitware.com/cmake/cmake/-/issues/18837
 if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
-	target_compile_options(cmake-library PUBLIC "/Zc:__cplusplus")
+	target_compile_options(${PROJECT_NAME} PUBLIC "/Zc:__cplusplus")
 endif()
 
 # TODO: Add tests and install targets if needed.
