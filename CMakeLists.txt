@@ -11,8 +11,17 @@ endif()
 
 project ("cmake-library")
 
-# Add source to this project's executable.
-add_executable (cmake-library  )
+# Add source files (.cpp) to this project.
+add_library(${PROJECT_NAME})
+add_subdirectory("src")
+
+# Add template header files (.hpp) to this project
+file(GLOB_RECURSE TEMPLATE_FILES CONFIGURE_DEPENDS "include/*.hpp")
+target_sources(${PROJECT_NAME} PUBLIC ${TEMPLATE_FILES})
+
+# Add normal header files (.h) to this project
+file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS "include/*.h")
+target_sources(${PROJECT_NAME} PUBLIC ${HEADER_FILES})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET cmake-library PROPERTY CXX_STANDARD 20)
