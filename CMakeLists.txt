@@ -22,10 +22,7 @@ target_sources(${PROJECT_NAME} PUBLIC ${TEMPLATE_FILES})
 # Add normal header files (.h) to this project
 file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS "include/*.h")
 target_sources(${PROJECT_NAME} PUBLIC ${HEADER_FILES})
-
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET cmake-library PROPERTY CXX_STANDARD 20)
-endif()
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
 # Fix CMake Issue #18837 
 # https://gitlab.kitware.com/cmake/cmake/-/issues/18837
