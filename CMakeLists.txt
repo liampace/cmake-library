@@ -34,3 +34,4 @@ if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
 endif()
 
 # TODO: Add tests and install targets if needed.
+add_subdirectory("examples")
