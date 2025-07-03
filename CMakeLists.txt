@@ -29,7 +29,7 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 # Fix CMake Issue #18837 
 # https://gitlab.kitware.com/cmake/cmake/-/issues/18837
 if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
-	target_compile_options(cmake-library PUBLIC "/Zc:__cplusplus")
+	target_compile_options(${PROJECT_NAME} PUBLIC "/Zc:__cplusplus")
 endif()
 
 # TODO: Add tests and install targets if needed.
