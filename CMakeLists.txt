@@ -24,6 +24,7 @@ target_sources(${PROJECT_NAME} PUBLIC ${TEMPLATE_FILES})
 # Add normal header files (.h) to this project
 file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS "include/*.h")
 target_sources(${PROJECT_NAME} PUBLIC ${HEADER_FILES})
+target_include_directories(${PROJECT_NAME} PUBLIC "include")
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
 # Fix CMake Issue #18837 
