@@ -13,6 +13,8 @@ project ("MyLibrary"
 	VERSION 1.0
 	DESCRIPTION "A simple CMake library.")
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 # Add build options to this project.
 string(COMPARE EQUAL "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}" MYLIBRARY_STANDALONE)
 option(MYLIBRARY_BUILD_EXAMPLES "Build the ${PROJECT_NAME} example programs" ${MYLIBRARY_STANDALONE})
