@@ -28,7 +28,7 @@ examples/                       Contains example executable programs
 include/                        Configuration file for building library include files
 ├── **.h                        Normal header files
 └── **.hpp                      Template header files
-lib/
+lib/                            Contains library dependencies
 src/
 ├── CMakeLists.txt              Configuration file for building library source files
 └── **.cpp
