@@ -1,6 +1,3 @@
-# CMakeList.txt : CMake project for cmake-library, include source and define
-# project specific logic here.
-#
 cmake_minimum_required (VERSION 3.19)
 
 # Enable Hot Reload for MSVC compilers if supported.
@@ -9,15 +6,22 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("MyLibrary"
-	VERSION 1.0
-	DESCRIPTION "A simple CMake library.")
+project ("MyLibrary")
+set(PROJECT_VERSION_MAJOR 1)
+set(PROJECT_VERSION_MINOR 0)
+set(PROJECT_VERSION_PATCH 0)
+set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
+set(PROJECT_DESCRIPTION "A simple CMake library.")
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Add build options to this project.
 string(COMPARE EQUAL "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}" MYLIBRARY_STANDALONE)
 option(MYLIBRARY_BUILD_EXAMPLES "Build the ${PROJECT_NAME} example programs" ${MYLIBRARY_STANDALONE})
 option(MYLIBRARY_BUILD_TESTS "Build the ${PROJECT_NAME} test programs" ${MYLIBRARY_STANDALONE})
 option(MYLIBRARY_BUILD_DOCS "Build the ${PROJECT_NAME} HTML documentation." ON)
+
+# Add CMake modules to this project
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 # Add source files (.cpp) to this project.
 add_library(${PROJECT_NAME})
@@ -39,17 +43,19 @@ if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
 	target_compile_options(${PROJECT_NAME} PUBLIC "/Zc:__cplusplus")
 endif()
 
-# TODO: Add tests and install targets if needed.
+# Add example programs to this project.
 if (MYLIBRARY_BUILD_EXAMPLES)
 	add_subdirectory("examples")
 endif()
 
+# Add test programs to this project.
 if (MYLIBRARY_BUILD_TESTS)
 	include(CTest)
 	enable_testing()
 	add_subdirectory("tests")
 endif()
 
+# Add documentation to this project.
 if (MYLIBRARY_BUILD_DOCS)
 	add_subdirectory("docs")
 endif()
