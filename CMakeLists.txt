@@ -1,6 +1,3 @@
-# CMakeList.txt : CMake project for cmake-library, include source and define
-# project specific logic here.
-#
 cmake_minimum_required (VERSION 3.19)
 
 # Enable Hot Reload for MSVC compilers if supported.
@@ -44,17 +41,19 @@ if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
 	target_compile_options(${PROJECT_NAME} PUBLIC "/Zc:__cplusplus")
 endif()
 
-# TODO: Add tests and install targets if needed.
+# Add example programs to this project.
 if (MYLIBRARY_BUILD_EXAMPLES)
 	add_subdirectory("examples")
 endif()
 
+# Add test programs to this project.
 if (MYLIBRARY_BUILD_TESTS)
 	include(CTest)
 	enable_testing()
 	add_subdirectory("tests")
 endif()
 
+# Add documentation to this project.
 if (MYLIBRARY_BUILD_DOCS)
 	add_subdirectory("docs")
 endif()
