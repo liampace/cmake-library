@@ -19,6 +19,7 @@ string(COMPARE EQUAL "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}" MYLIBRA
 option(MYLIBRARY_BUILD_EXAMPLES "Build the ${PROJECT_NAME} example programs" ${MYLIBRARY_STANDALONE})
 option(MYLIBRARY_BUILD_TESTS "Build the ${PROJECT_NAME} test programs" ${MYLIBRARY_STANDALONE})
 option(MYLIBRARY_BUILD_DOCS "Build the ${PROJECT_NAME} HTML documentation." ON)
+option(MYLIBRARY_INSTALL "Generate the ${PROJECT_NAME} installation target" ON)
 
 # Add CMake modules to this project
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
@@ -66,4 +67,9 @@ endif()
 # Add documentation to this project.
 if (MYLIBRARY_BUILD_DOCS)
 	add_subdirectory("docs")
+endif()
+
+# Add installation target to this project.
+if (MYLIBRARY_INSTALL)
+	message("Install ${PROJECT_NAME}")
 endif()
