@@ -12,6 +12,9 @@ set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 0)
 set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 set(PROJECT_DESCRIPTION "A simple CMake library.")
+set(MYLIBRARY_INCLUDE_DIR 
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Add build options to this project.
@@ -29,13 +32,13 @@ add_library(${PROJECT_NAME})
 add_subdirectory("src")
 
 # Add template header files (.hpp) to this project
-file(GLOB_RECURSE TEMPLATE_FILES CONFIGURE_DEPENDS "include/*.hpp")
+file(GLOB_RECURSE TEMPLATE_FILES CONFIGURE_DEPENDS "${MYLIBRARY_INCLUDE_DIR}/*.hpp")
 target_sources(${PROJECT_NAME} PUBLIC ${TEMPLATE_FILES})
 
 # Add normal header files (.h) to this project
-file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS "include/*.h")
+file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS "${MYLIBRARY_INCLUDE_DIR}/*.h")
 target_sources(${PROJECT_NAME} PUBLIC ${HEADER_FILES})
-target_include_directories(${PROJECT_NAME} PUBLIC "include")
+target_include_directories(${PROJECT_NAME} PUBLIC ${MYLIBRARY_INCLUDE_DIR})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
 # Fix CMake Issue #18837 
@@ -71,5 +74,5 @@ endif()
 
 # Add installation target to this project.
 if (MYLIBRARY_INSTALL)
-	message("Install ${PROJECT_NAME}")
+	
 endif()
