@@ -74,5 +74,7 @@ endif()
 
 # Add installation target to this project.
 if (MYLIBRARY_INSTALL)
-	
+	install(DIRECTORY ${MYLIBRARY_INCLUDE_DIR}
+		DESTINATION ${CMAKE_INSTALL_PREFIX}
+		FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
 endif()
