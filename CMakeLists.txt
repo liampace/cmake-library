@@ -39,8 +39,16 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
 # Fix CMake Issue #18837 
 # https://gitlab.kitware.com/cmake/cmake/-/issues/18837
+# This is required for making the standard conforming __cplusplus macro the correct value
 if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
 	target_compile_options(${PROJECT_NAME} PUBLIC "/Zc:__cplusplus")
+endif()
+
+# Fix CMake Issue #17068
+# https://gitlab.kitware.com/cmake/cmake/-/issues/17068
+# This is required for making some standard conforming features compilable
+if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1912))
+	target_compile_options(${PROJECT_NAME} PUBLIC "/permissive-")
 endif()
 
 # Add example programs to this project.
